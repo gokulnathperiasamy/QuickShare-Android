@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Quick Share</string>
+
+    <string name="action_about">About</string>
+    <string name="action_rate">Rate Us</string>
+
+    <string name="btn_edit">My Profile</string>
+    <string name="btn_share">Share Card</string>
+    <string name="btn_add">Add New</string>
+
+    <string name="set_profile_message">Please click on "My Profile" button to set your profile.</string>
+    <string name="data_not_available_message">Card data not available. Please add new card.</string>
+
+    <string name="dismiss_dialog">Dismiss</string>
+
+    <string name="copyright_message">Copyright © 2017 Quick Share. All rights reserved.</string>
+    <string name="contact_mail">Mail us at: gokulnath.aws@gmail.com</string>
+</resources>
