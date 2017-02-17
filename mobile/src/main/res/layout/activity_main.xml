@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@color/primaryVeryLight"
+        android:background="@color/primaryColor"
         android:orientation="horizontal"
         android:weightSum="100">
 

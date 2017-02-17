@@ -1,19 +1,22 @@
 package com.quickshare.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.quickshare.R;
 import com.quickshare.fragment.HomeFragment;
+import com.quickshare.fragment.EditProfilePopUpDialogFragment;
 import com.quickshare.utility.DialogHelper;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
@@ -60,7 +63,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void startFragment(Fragment fragment, boolean addToBackStack) {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        android.app.FragmentManager supportFragmentManager = getFragmentManager();
         if (!addToBackStack) {
             int count = supportFragmentManager.getBackStackEntryCount();
             for (int i = 0; i < count; ++i) {
@@ -77,5 +80,11 @@ public class MainActivity extends BaseActivity {
 
     public void toggleShareOption(boolean flag) {
         ctaShare.setEnabled(flag);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.cta_edit)
+    public void editProfile(View view) {
+        EditProfilePopUpDialogFragment.newInstance().show(getFragmentManager(), null);
     }
 }

@@ -6,6 +6,7 @@ import com.quickshare.activity.BaseActivity;
 import com.quickshare.activity.MainActivity;
 import com.quickshare.fragment.BaseFragment;
 import com.quickshare.fragment.HomeFragment;
+import com.quickshare.fragment.EditProfilePopUpDialogFragment;
 import com.quickshare.utility.DialogHelper;
 import com.quickshare.utility.PreferenceHelper;
 
@@ -25,6 +26,7 @@ import dagger.Provides;
                 MainActivity.class,
                 BaseFragment.class,
                 HomeFragment.class,
+                EditProfilePopUpDialogFragment.class,
         })
 public class QuickShareModule {
 
