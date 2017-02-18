@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.quickshare.R;
 import com.quickshare.activity.MainActivity;
 import com.quickshare.entity.ProfileData;
+import com.quickshare.entity.ProfileDataType;
+import com.quickshare.utility.ProfileDataHelper;
+import com.quickshare.utility.TextHelper;
 
 import butterknife.Bind;
 
@@ -38,12 +41,14 @@ public class EditProfileFragment extends BaseFragment {
     TextView fax;
 
     private static MainActivity mainActivity;
+    private static ProfileData myProfileData;
 
     public EditProfileFragment() {
     }
 
-    public static EditProfileFragment newInstance(MainActivity mainActivity) {
+    public static EditProfileFragment newInstance(MainActivity mainActivity, ProfileData myProfileData) {
         EditProfileFragment.mainActivity = mainActivity;
+        EditProfileFragment.myProfileData = myProfileData;
         return new EditProfileFragment();
     }
 
@@ -65,12 +70,39 @@ public class EditProfileFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (myProfileData != null) {
+            if (TextHelper.isValidText(myProfileData.firstName)) {
+                firstName.setText(myProfileData.firstName);
+            }
+            if (TextHelper.isValidText(myProfileData.lastName)) {
+                lastName.setText(myProfileData.lastName);
+            }
+            if (TextHelper.isValidText(myProfileData.companyName)) {
+                companyName.setText(myProfileData.companyName);
+            }
+            if (TextHelper.isValidText(myProfileData.companyAddress)) {
+                companyAddress.setText(myProfileData.companyAddress);
+            }
+            if (TextHelper.isValidText(myProfileData.email)) {
+                email.setText(myProfileData.email);
+            }
+            if (TextHelper.isValidText(myProfileData.mobileNumber)) {
+                mobileNumber.setText(myProfileData.mobileNumber);
+            }
+            if (TextHelper.isValidText(myProfileData.officeNumber)) {
+                officeNumber.setText(myProfileData.officeNumber);
+            }
+            if (TextHelper.isValidText(myProfileData.fax)) {
+                fax.setText(myProfileData.fax);
+            }
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         ProfileData profileData = new ProfileData();
+        profileData.profileID = ProfileDataHelper.getProfileID();
         profileData.firstName = firstName.getText().toString();
         profileData.lastName = lastName.getText().toString();
         profileData.companyName = companyName.getText().toString();
@@ -79,6 +111,7 @@ public class EditProfileFragment extends BaseFragment {
         profileData.mobileNumber = mobileNumber.getText().toString();
         profileData.officeNumber = officeNumber.getText().toString();
         profileData.fax = fax.getText().toString();
+        profileData.isMyProfile = ProfileDataType.MY_PROFILE.getValue();
         mainActivity.saveProfile(profileData);
     }
 }

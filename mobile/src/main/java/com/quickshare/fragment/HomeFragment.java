@@ -52,7 +52,6 @@ public class HomeFragment extends BaseFragment {
             layoutError.setVisibility(View.VISIBLE);
             layoutErrorMessage.setVisibility(View.VISIBLE);
             layoutErrorMessage.setText(getString(R.string.set_profile_message));
-            mainActivity.toggleShareOption(false);
         } else if (!PreferenceHelper.isDataAvailable()) {
             layoutError.setVisibility(View.VISIBLE);
             layoutErrorMessage.setVisibility(View.VISIBLE);

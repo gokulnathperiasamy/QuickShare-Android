@@ -30,4 +30,5 @@ dependencies {
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'org.litepal.android:core:1.4.1'
 }

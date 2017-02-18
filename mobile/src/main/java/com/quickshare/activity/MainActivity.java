@@ -11,12 +11,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quickshare.R;
 import com.quickshare.entity.ProfileData;
+import com.quickshare.entity.ProfileDataType;
 import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
 import com.quickshare.utility.DialogHelper;
+import com.quickshare.utility.PreferenceHelper;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -45,6 +52,7 @@ public class MainActivity extends BaseActivity {
     View layoutCTAUser;
 
     private static boolean isSaveCalled = false;
+    private static ProfileData myProfileData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +60,26 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getProfileData();
         startFragment(HomeFragment.newInstance(this), false);
+    }
+
+    private void getProfileData() {
+        List<ProfileData> listProfileData = DataSupport.findAll(ProfileData.class);
+        if (listProfileData != null && listProfileData.size() > 0) {
+            loadCards(listProfileData);
+        }
+    }
+
+    private void loadCards(List<ProfileData> listProfileData) {
+        for (ProfileData profileData : listProfileData) {
+            if (profileData.isMyProfile.equalsIgnoreCase(ProfileDataType.MY_PROFILE.getValue())) {
+                myProfileData = profileData;
+                PreferenceHelper.setIsProfileSet(true);
+                toggleShareOption(true);
+                break;
+            }
+        }
     }
 
     @Override
@@ -118,7 +145,7 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_edit)
     public void editProfile(View view) {
-        startFragment(EditProfileFragment.newInstance(this), false);
+        startFragment(EditProfileFragment.newInstance(this, myProfileData), false);
         showCTAMainLayout(false);
         showCTAUserLayout(true);
     }
@@ -154,8 +181,24 @@ public class MainActivity extends BaseActivity {
 
     public void saveProfile(ProfileData profileData) {
         if (isSaveCalled) {
-            String cN = profileData.companyName;
-            String uN = profileData.firstName;
+            // Delete current profile data.
+            if (myProfileData != null) {
+                myProfileData.delete();
+            }
+
+            // Save new profile data.
+            if (isDataValid(profileData) && profileData.save()) {
+                Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+                myProfileData = profileData;
+                toggleShareOption(true);
+                PreferenceHelper.setIsProfileSet(true);
+            } else {
+                Toast.makeText(this, "Invalid Data", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private boolean isDataValid(ProfileData profileData) {
+        return profileData != null && profileData.firstName.length() > 0;
     }
 }

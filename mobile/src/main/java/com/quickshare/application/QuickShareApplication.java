@@ -2,6 +2,8 @@ package com.quickshare.application;
 
 import android.app.Application;
 
+import org.litepal.LitePal;
+
 import dagger.ObjectGraph;
 import timber.log.Timber;
 
@@ -17,6 +19,7 @@ public class QuickShareApplication extends Application {
         quickShareApplication = this;
         objectGraph = ObjectGraph.create(getModules());
         inject(this);
+        LitePal.initialize(this);
     }
 
     protected Object[] getModules() {

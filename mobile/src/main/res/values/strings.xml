@@ -11,7 +11,7 @@
     <string name="btn_cancel">Cancel</string>
 
     <string name="set_profile_message">Please click on "My Profile" button to set your profile.</string>
-    <string name="data_not_available_message">Card data not available. Please add new card.</string>
+    <string name="data_not_available_message">Cards. Please add new card.</string>
 
     <string name="my_profile_title">My Profile</string>
     <string name="first_name">First Name</string>
