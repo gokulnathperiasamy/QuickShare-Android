@@ -32,20 +32,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.cta_edit)
-    TextView ctaEdit;
-
     @Bind(R.id.cta_share)
     TextView ctaShare;
-
-    @Bind(R.id.cta_add)
-    TextView ctaAdd;
-
-    @Bind(R.id.cta_cancel)
-    TextView ctaCancel;
-
-    @Bind(R.id.cta_save)
-    TextView ctaSave;
 
     @Bind(R.id.layout_cta_main)
     View layoutCTAMain;
@@ -63,10 +51,11 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toggleShareOption(false);
-        getProfileData();
+        loadCardData();
     }
 
-    private void getProfileData() {
+    private void loadCardData() {
+        hideSoftKeyboard();
         List<ProfileData> listProfileData = DataSupport.findAll(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
             loadCards(listProfileData);
@@ -81,10 +70,16 @@ public class MainActivity extends BaseActivity {
                 myProfileData = profileData;
                 PreferenceHelper.setIsProfileSet(true);
                 toggleShareOption(true);
+                listProfileData.remove(profileData);
                 break;
             }
         }
-        startFragment(CardFragment.newInstance(this, listProfileData), false);
+        // Remove personal card. And populate other cards.
+        if (listProfileData.size() > 0) {
+            startFragment(CardFragment.newInstance(this, listProfileData), false);
+        } else {
+            startFragment(HomeFragment.newInstance(this), false);
+        }
     }
 
     @Override
@@ -156,17 +151,25 @@ public class MainActivity extends BaseActivity {
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.cta_add)
+    public void addCard(View view) {
+        ProfileDataHelper.generateDummyData();
+        loadCardData();
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.cta_cancel)
     public void cancelEditProfile(View view) {
         isSaveCalled = false;
         showHomeFragment();
+        loadCardData();
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_save)
     public void saveProfile(View view) {
         isSaveCalled = true;
-        showHomeFragment();
+        loadCardData();
     }
 
     private void showHomeFragment() {
@@ -201,5 +204,8 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(this, getString(R.string.profile_invalid_message), Toast.LENGTH_SHORT).show();
             }
         }
+        showCTAMainLayout(true);
+        showCTAUserLayout(false);
+        hideSoftKeyboard();
     }
 }
