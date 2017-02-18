@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toggleShareOption(false);
         getProfileData();
         startFragment(HomeFragment.newInstance(this), false);
     }
@@ -188,12 +189,12 @@ public class MainActivity extends BaseActivity {
 
             // Save new profile data.
             if (isDataValid(profileData) && profileData.save()) {
-                Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.profile_saved_message), Toast.LENGTH_SHORT).show();
                 myProfileData = profileData;
                 toggleShareOption(true);
                 PreferenceHelper.setIsProfileSet(true);
             } else {
-                Toast.makeText(this, "Invalid Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.profile_invalid_message), Toast.LENGTH_SHORT).show();
             }
         }
     }
