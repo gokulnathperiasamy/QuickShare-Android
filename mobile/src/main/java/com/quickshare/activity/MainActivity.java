@@ -20,6 +20,7 @@ import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
 import com.quickshare.utility.DialogHelper;
 import com.quickshare.utility.PreferenceHelper;
+import com.quickshare.utility.ProfileDataHelper;
 
 import org.litepal.crud.DataSupport;
 
@@ -188,7 +189,7 @@ public class MainActivity extends BaseActivity {
             }
 
             // Save new profile data.
-            if (isDataValid(profileData) && profileData.save()) {
+            if (ProfileDataHelper.isDataValid(profileData) && profileData.save()) {
                 Toast.makeText(this, getString(R.string.profile_saved_message), Toast.LENGTH_SHORT).show();
                 myProfileData = profileData;
                 toggleShareOption(true);
@@ -197,9 +198,5 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(this, getString(R.string.profile_invalid_message), Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private boolean isDataValid(ProfileData profileData) {
-        return profileData != null && profileData.firstName.length() > 0;
     }
 }

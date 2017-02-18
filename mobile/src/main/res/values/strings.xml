@@ -11,7 +11,7 @@
     <string name="btn_cancel">Cancel</string>
 
     <string name="set_profile_message">Please click on \"My Profile\" button to set your profile.</string>
-    <string name="data_not_available_message">No Cards. Please add cards using \"Add New\" button.</string>
+    <string name="data_not_available_message">No Cards.\nPlease add cards using \"Add New\" button.</string>
     <string name="profile_saved_message">Profile Saved Successfully</string>
     <string name="profile_invalid_message">Unable To Save Profile</string>
 
