@@ -3,11 +3,13 @@ package com.quickshare.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.quickshare.R;
@@ -28,6 +30,12 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.cta_add)
     TextView ctaAdd;
+
+    @Bind(R.id.cta_cancel)
+    TextView ctaCancel;
+
+    @Bind(R.id.cta_save)
+    TextView ctaSave;
 
     @Bind(R.id.layout_cta_main)
     View layoutCTAMain;
@@ -88,7 +96,7 @@ public class MainActivity extends BaseActivity {
         ctaShare.setEnabled(flag);
     }
 
-    public void showCTAMain(boolean flag) {
+    public void showCTAMainLayout(boolean flag) {
         if (flag) {
             layoutCTAMain.setVisibility(View.VISIBLE);
         } else {
@@ -96,7 +104,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void showCTAUser(boolean flag) {
+    public void showCTAUserLayout(boolean flag) {
         if (flag) {
             layoutCTAUser.setVisibility(View.VISIBLE);
         } else {
@@ -108,7 +116,34 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.cta_edit)
     public void editProfile(View view) {
         startFragment(EditProfileFragment.newInstance(this), false);
-        showCTAMain(false);
-        showCTAUser(true);
+        showCTAMainLayout(false);
+        showCTAUserLayout(true);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.cta_cancel)
+    public void cancelEditProfile(View view) {
+        showHomeFragment();
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.cta_save)
+    public void saveProfile(View view) {
+        showHomeFragment();
+    }
+
+    private void showHomeFragment() {
+        startFragment(HomeFragment.newInstance(this), false);
+        hideSoftKeyboard();
+        showCTAMainLayout(true);
+        showCTAUserLayout(false);
+    }
+
+    private void hideSoftKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
