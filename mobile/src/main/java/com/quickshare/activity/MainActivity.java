@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.quickshare.R;
+import com.quickshare.entity.ProfileData;
 import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
 import com.quickshare.utility.DialogHelper;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.layout_cta_user)
     View layoutCTAUser;
+
+    private static boolean isSaveCalled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,12 +126,14 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_cancel)
     public void cancelEditProfile(View view) {
+        isSaveCalled = false;
         showHomeFragment();
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_save)
     public void saveProfile(View view) {
+        isSaveCalled = true;
         showHomeFragment();
     }
 
@@ -144,6 +149,13 @@ public class MainActivity extends BaseActivity {
         if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public void saveProfile(ProfileData profileData) {
+        if (isSaveCalled) {
+            String cN = profileData.companyName;
+            String uN = profileData.firstName;
         }
     }
 }

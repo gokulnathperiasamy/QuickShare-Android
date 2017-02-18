@@ -127,10 +127,10 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/land_line"
+            android:id="@+id/office_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/land_line"
+            android:hint="@string/office_number"
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"

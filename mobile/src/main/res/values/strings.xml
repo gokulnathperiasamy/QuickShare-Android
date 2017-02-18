@@ -20,7 +20,7 @@
     <string name="company_address">Company Address</string>
     <string name="email_address">Email</string>
     <string name="mobile_number">Mobile</string>
-    <string name="land_line">Office</string>
+    <string name="office_number">Office</string>
     <string name="fax">Fax</string>
 
     <string name="dismiss_dialog">Dismiss</string>
