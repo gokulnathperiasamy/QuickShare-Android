@@ -7,9 +7,21 @@
     <string name="btn_edit">My Profile</string>
     <string name="btn_share">Share Card</string>
     <string name="btn_add">Add New</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
 
     <string name="set_profile_message">Please click on "My Profile" button to set your profile.</string>
     <string name="data_not_available_message">Card data not available. Please add new card.</string>
+
+    <string name="my_profile_title">My Profile</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="company_name">Company Name</string>
+    <string name="company_address">Company Address</string>
+    <string name="email_address">Email</string>
+    <string name="mobile_number">Mobile</string>
+    <string name="land_line">Office</string>
+    <string name="fax">Fax</string>
 
     <string name="dismiss_dialog">Dismiss</string>
 

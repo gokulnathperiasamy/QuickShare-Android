@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.quickshare.R;
+import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
-import com.quickshare.fragment.EditProfilePopUpDialogFragment;
 import com.quickshare.utility.DialogHelper;
 
 import butterknife.Bind;
@@ -28,6 +28,9 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.cta_add)
     TextView ctaAdd;
+
+    @Bind(R.id.layout_cta)
+    View layoutCTA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +66,14 @@ public class MainActivity extends BaseActivity {
     }
 
     private void startFragment(Fragment fragment, boolean addToBackStack) {
-        android.app.FragmentManager supportFragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         if (!addToBackStack) {
-            int count = supportFragmentManager.getBackStackEntryCount();
+            int count = fragmentManager.getBackStackEntryCount();
             for (int i = 0; i < count; ++i) {
-                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         }
-        FragmentTransaction transaction = supportFragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.coordinator_content, fragment);
         if (addToBackStack) {
             transaction.addToBackStack(null);
@@ -82,9 +85,18 @@ public class MainActivity extends BaseActivity {
         ctaShare.setEnabled(flag);
     }
 
+    public void showCTA(boolean flag) {
+        if (flag) {
+            layoutCTA.setVisibility(View.VISIBLE);
+        } else {
+            layoutCTA.setVisibility(View.GONE);
+        }
+    }
+
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_edit)
     public void editProfile(View view) {
-        EditProfilePopUpDialogFragment.newInstance().show(getFragmentManager(), null);
+        startFragment(EditProfileFragment.newInstance(this), false);
+        showCTA(false);
     }
 }

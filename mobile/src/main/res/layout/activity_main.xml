@@ -24,6 +24,7 @@
     <include layout="@layout/activity_coordinator_layout" />
 
     <LinearLayout
+        android:id="@+id/layout_cta"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
