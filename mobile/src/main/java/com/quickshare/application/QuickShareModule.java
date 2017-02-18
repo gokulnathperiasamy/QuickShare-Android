@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.quickshare.activity.BaseActivity;
 import com.quickshare.activity.MainActivity;
+import com.quickshare.adapter.CardListAdapter;
+import com.quickshare.adapter.CardListItemViewHolder;
 import com.quickshare.fragment.BaseFragment;
+import com.quickshare.fragment.CardFragment;
 import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
 import com.quickshare.fragment.ShareProfilePopUpDialog;
@@ -28,6 +31,9 @@ import dagger.Provides;
                 BaseFragment.class,
                 HomeFragment.class,
                 EditProfileFragment.class,
+                CardFragment.class,
+                CardListAdapter.class,
+                CardListItemViewHolder.class,
                 ShareProfilePopUpDialog.class,
         })
 public class QuickShareModule {

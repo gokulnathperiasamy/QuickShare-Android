@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.quickshare.R;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
+import com.quickshare.fragment.CardFragment;
 import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
 import com.quickshare.utility.DialogHelper;
@@ -63,13 +64,14 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toggleShareOption(false);
         getProfileData();
-        startFragment(HomeFragment.newInstance(this), false);
     }
 
     private void getProfileData() {
         List<ProfileData> listProfileData = DataSupport.findAll(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
             loadCards(listProfileData);
+        } else {
+            startFragment(HomeFragment.newInstance(this), false);
         }
     }
 
@@ -82,6 +84,7 @@ public class MainActivity extends BaseActivity {
                 break;
             }
         }
+        startFragment(CardFragment.newInstance(this, listProfileData), false);
     }
 
     @Override
