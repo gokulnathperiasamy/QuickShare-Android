@@ -29,8 +29,11 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.cta_add)
     TextView ctaAdd;
 
-    @Bind(R.id.layout_cta)
-    View layoutCTA;
+    @Bind(R.id.layout_cta_main)
+    View layoutCTAMain;
+
+    @Bind(R.id.layout_cta_user)
+    View layoutCTAUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +88,19 @@ public class MainActivity extends BaseActivity {
         ctaShare.setEnabled(flag);
     }
 
-    public void showCTA(boolean flag) {
+    public void showCTAMain(boolean flag) {
         if (flag) {
-            layoutCTA.setVisibility(View.VISIBLE);
+            layoutCTAMain.setVisibility(View.VISIBLE);
         } else {
-            layoutCTA.setVisibility(View.GONE);
+            layoutCTAMain.setVisibility(View.GONE);
+        }
+    }
+
+    public void showCTAUser(boolean flag) {
+        if (flag) {
+            layoutCTAUser.setVisibility(View.VISIBLE);
+        } else {
+            layoutCTAUser.setVisibility(View.GONE);
         }
     }
 
@@ -97,6 +108,7 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.cta_edit)
     public void editProfile(View view) {
         startFragment(EditProfileFragment.newInstance(this), false);
-        showCTA(false);
+        showCTAMain(false);
+        showCTAUser(true);
     }
 }

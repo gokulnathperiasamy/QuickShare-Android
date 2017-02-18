@@ -24,7 +24,7 @@
     <include layout="@layout/activity_coordinator_layout" />
 
     <LinearLayout
-        android:id="@+id/layout_cta"
+        android:id="@+id/layout_cta_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
@@ -65,6 +65,38 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:text="@string/btn_add" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_cta_user"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/primaryColor"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/cta_cancel"
+            style="@style/CTAStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/btn_cancel" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/cta_save"
+            style="@style/CTAStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/btn_save" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
