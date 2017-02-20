@@ -6,11 +6,11 @@ import com.quickshare.activity.BaseActivity;
 import com.quickshare.activity.MainActivity;
 import com.quickshare.adapter.CardListAdapter;
 import com.quickshare.adapter.CardListItemViewHolder;
+import com.quickshare.dialog.ShareMyProfileDialog;
 import com.quickshare.fragment.BaseFragment;
 import com.quickshare.fragment.CardFragment;
 import com.quickshare.fragment.EditProfileFragment;
 import com.quickshare.fragment.HomeFragment;
-import com.quickshare.fragment.ShareProfilePopUpDialog;
 import com.quickshare.utility.DialogHelper;
 import com.quickshare.utility.PreferenceHelper;
 
@@ -34,7 +34,7 @@ import dagger.Provides;
                 CardFragment.class,
                 CardListAdapter.class,
                 CardListItemViewHolder.class,
-                ShareProfilePopUpDialog.class,
+                ShareMyProfileDialog.class,
         })
 public class QuickShareModule {
 

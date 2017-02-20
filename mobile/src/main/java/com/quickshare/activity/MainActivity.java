@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.quickshare.R;
+import com.quickshare.dialog.ShareMyProfileDialog;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
 import com.quickshare.fragment.CardFragment;
@@ -22,6 +24,8 @@ import com.quickshare.fragment.HomeFragment;
 import com.quickshare.utility.DialogHelper;
 import com.quickshare.utility.PreferenceHelper;
 import com.quickshare.utility.ProfileDataHelper;
+
+import net.glxn.qrgen.android.QRCode;
 
 import org.litepal.crud.DataSupport;
 
@@ -155,6 +159,14 @@ public class MainActivity extends BaseActivity {
         startFragment(EditProfileFragment.newInstance(this, myProfileData), false);
         showCTAMainLayout(false);
         showCTAUserLayout(true);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.cta_share)
+    public void shareMyCard(View view) {
+        Bitmap myBitmap = QRCode.from("www.example.org").bitmap();
+        ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap);
+        dialog.show();
     }
 
     @SuppressWarnings("unused")

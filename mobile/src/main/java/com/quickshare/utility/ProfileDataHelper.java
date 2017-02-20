@@ -3,8 +3,6 @@ package com.quickshare.utility;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class ProfileDataHelper {
 
     public static String getProfileID() {

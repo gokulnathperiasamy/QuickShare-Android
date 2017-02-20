@@ -14,6 +14,7 @@
     <string name="data_not_available_message">No Cards.\nPlease add cards using \"Add New\" button.</string>
     <string name="profile_saved_message">Profile Saved Successfully</string>
     <string name="profile_invalid_message">Unable To Save Profile</string>
+    <string name="share_my_profile_title">Share Your Card</string>
 
     <string name="my_profile_title">My Profile</string>
     <string name="first_name">First Name</string>
