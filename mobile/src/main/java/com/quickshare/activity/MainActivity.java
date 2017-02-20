@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.quickshare.R;
 import com.quickshare.dialog.ShareMyProfileDialog;
 import com.quickshare.entity.ProfileData;
@@ -176,8 +179,11 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_add)
     public void addCard(View view) {
-        ProfileDataHelper.generateDummyData();
-        loadCardData();
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setOrientationLocked(false);
+        integrator.setCaptureActivity(ReadQRCodeActivity.class);
+        integrator.setTimeout(10000);
+        integrator.initiateScan();
     }
 
     @SuppressWarnings("unused")
@@ -230,5 +236,19 @@ public class MainActivity extends BaseActivity {
         showCTAMainLayout(true);
         showCTAUserLayout(false);
         hideSoftKeyboard();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

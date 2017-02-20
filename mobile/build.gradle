@@ -33,4 +33,5 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile 'org.litepal.android:core:1.4.1'
     compile 'com.github.kenglxn.QRGen:android:2.2.0'
+    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
 }

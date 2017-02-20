@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.quickshare.activity.BaseActivity;
 import com.quickshare.activity.MainActivity;
+import com.quickshare.activity.ReadQRCodeActivity;
 import com.quickshare.adapter.CardListAdapter;
 import com.quickshare.adapter.CardListItemViewHolder;
 import com.quickshare.dialog.ShareMyProfileDialog;
@@ -35,6 +36,7 @@ import dagger.Provides;
                 CardListAdapter.class,
                 CardListItemViewHolder.class,
                 ShareMyProfileDialog.class,
+                ReadQRCodeActivity.class,
         })
 public class QuickShareModule {
 
