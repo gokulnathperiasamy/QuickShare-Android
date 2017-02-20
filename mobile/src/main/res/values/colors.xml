@@ -6,6 +6,7 @@
     <color name="primaryVeryLight">#06a99a</color>
     <color name="primaryColorDark">#008376</color>
     <color name="white">#FFFFFF</color>
+    <color name="whiteVeryLight">#F2F2F2</color>
     <color name="black">#000000</color>
     <color name="grey">#212121</color>
     <color name="light_grey">#E0E0E0</color>
