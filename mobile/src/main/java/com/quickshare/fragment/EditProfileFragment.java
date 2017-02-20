@@ -2,6 +2,8 @@ package com.quickshare.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -65,6 +67,7 @@ public class EditProfileFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -96,6 +99,12 @@ public class EditProfileFragment extends BaseFragment {
                 fax.setText(myProfileData.fax);
             }
         }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_my_profile);
+        item.setVisible(false);
     }
 
     @Override
