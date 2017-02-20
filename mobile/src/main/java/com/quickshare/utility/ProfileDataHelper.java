@@ -48,6 +48,13 @@ public class ProfileDataHelper {
         return "";
     }
 
+    public static String getQRCodeFormattedProfileData(ProfileData profileData) {
+        if (profileData != null) {
+            return profileData.firstName + "|" + profileData.lastName + "|" + profileData.companyName + "|" + profileData.email + "|" + profileData.mobileNumber + "|" + profileData.officeNumber + "|" + profileData.fax;
+        }
+        return null;
+    }
+
     public static void generateDummyData() {
         ProfileData profileData = new ProfileData();
         profileData.profileID = ProfileDataHelper.getProfileID();
