@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.cta_share)
     public void shareMyCard(View view) {
         if (myProfileData != null) {
-            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFormattedProfileData(myProfileData)).bitmap();
+            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).bitmap();
             if (myBitmap != null) {
                 ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap);
                 dialog.show();
@@ -243,12 +243,23 @@ public class MainActivity extends BaseActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.new_card_unable_to_read_message), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                String input = result.getContents();
+                saveData(input);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void saveData(String input) {
+        ProfileData profileData = ProfileDataHelper.getProfileDataFromQRCode(input);
+        if (profileData != null) {
+            profileData.save();
+            loadCardData();
+        } else {
+            Toast.makeText(this, getString(R.string.new_card_unable_to_save_message), Toast.LENGTH_LONG).show();
         }
     }
 }

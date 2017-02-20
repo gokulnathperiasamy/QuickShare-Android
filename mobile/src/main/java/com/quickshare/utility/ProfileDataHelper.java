@@ -3,6 +3,8 @@ package com.quickshare.utility;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
 
+import java.util.Arrays;
+
 public class ProfileDataHelper {
 
     public static String getProfileID() {
@@ -48,9 +50,30 @@ public class ProfileDataHelper {
         return "";
     }
 
-    public static String getQRCodeFormattedProfileData(ProfileData profileData) {
+    public static String getQRCodeFromProfileData(ProfileData profileData) {
         if (profileData != null) {
-            return profileData.firstName + "|" + profileData.lastName + "|" + profileData.companyName + "|" + profileData.email + "|" + profileData.mobileNumber + "|" + profileData.officeNumber + "|" + profileData.fax;
+            return profileData.firstName + "|" + profileData.lastName + "|" + profileData.companyName + "|" + profileData.companyAddress + "|" + profileData.email + "|" + profileData.mobileNumber + "|" + profileData.officeNumber + "|" + profileData.fax + "|";
+        }
+        return null;
+    }
+
+    public static ProfileData getProfileDataFromQRCode(final String QR_PROFILE_DATA) {
+        if (TextHelper.isValidText(QR_PROFILE_DATA)) {
+            String[] data = QR_PROFILE_DATA.split("\\|", -1);
+            if (data.length > 0 && TextHelper.isValidText(data[0])) {
+                ProfileData profileData = new ProfileData();
+                profileData.profileID = ProfileDataHelper.getProfileID();
+                profileData.firstName = TextHelper.isValidText(data[0]) ? data[0] : "";
+                profileData.lastName = TextHelper.isValidText(data[1]) ? data[1] : "";
+                profileData.companyName = TextHelper.isValidText(data[2]) ? data[2] : "";
+                profileData.companyAddress = TextHelper.isValidText(data[3]) ? data[3] : "";
+                profileData.email = TextHelper.isValidText(data[4]) ? data[4] : "";
+                profileData.mobileNumber = TextHelper.isValidText(data[5]) ? data[5] : "";
+                profileData.officeNumber = TextHelper.isValidText(data[6]) ? data[6] : "";
+                profileData.fax = TextHelper.isValidText(data[7]) ? data[7] : "";
+                profileData.isMyProfile = ProfileDataType.OTHERS.getValue();
+                return profileData;
+            }
         }
         return null;
     }
@@ -71,7 +94,7 @@ public class ProfileDataHelper {
     }
 
     private static int generateRandomNumber(int min, int max) {
-        return min + (int)(Math.random() * ((max - min) + 1));
+        return min + (int) (Math.random() * ((max - min) + 1));
     }
 
 }

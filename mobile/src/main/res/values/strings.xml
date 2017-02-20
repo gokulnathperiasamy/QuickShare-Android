@@ -16,6 +16,8 @@
     <string name="profile_invalid_message">Unable To Save Profile</string>
     <string name="share_my_profile_title">Share Your Card</string>
     <string name="add_new_card_title">Add New Card</string>
+    <string name="new_card_unable_to_read_message">Unable To Read Card. Try Again.</string>
+    <string name="new_card_unable_to_save_message">Unable To Save Card. Try Again.</string>
 
     <string name="my_profile_title">My Profile</string>
     <string name="first_name">First Name</string>
