@@ -3,7 +3,6 @@ package com.quickshare.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.quickshare.R;
@@ -47,9 +46,8 @@ public class CardListItemViewHolder extends RecyclerView.ViewHolder {
     public void bindView(final ProfileData profileData, final Context context, final CardFragment cardFragment) {
         this.context = context;
 
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int width = windowManager.getDefaultDisplay().getWidth();
-        itemView.setLayoutParams(new RecyclerView.LayoutParams(width, RecyclerView.LayoutParams.WRAP_CONTENT));
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+        itemView.setLayoutParams(layoutParams);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
