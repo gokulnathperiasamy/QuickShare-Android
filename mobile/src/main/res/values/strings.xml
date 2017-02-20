@@ -3,14 +3,14 @@
 
     <string name="action_about">About</string>
     <string name="action_rate">Rate Us</string>
+    <string name="action_my_profile">My Profile</string>
 
-    <string name="btn_edit">My Profile</string>
     <string name="btn_share">Share Card</string>
     <string name="btn_add">Add New</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
 
-    <string name="set_profile_message">Please click on \"My Profile\" button to set your profile.</string>
+    <string name="set_profile_message">Please click on \"Menu -> My Profile\" to set your profile.</string>
     <string name="data_not_available_message">No Cards.\nPlease add cards using \"Add New\" button.</string>
     <string name="profile_saved_message">Profile Saved Successfully</string>
     <string name="profile_invalid_message">Unable To Save Profile</string>

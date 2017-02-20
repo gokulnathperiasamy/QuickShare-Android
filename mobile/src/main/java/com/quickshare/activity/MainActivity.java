@@ -5,12 +5,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quickshare.R;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity {
 
     @Bind(R.id.cta_share)
-    TextView ctaShare;
+    FloatingActionButton ctaShare;
 
     @Bind(R.id.layout_cta_main)
     View layoutCTAMain;
@@ -91,6 +91,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_my_profile:
+                editMyProfile();
+                break;
             case R.id.action_about:
                 DialogHelper.showAboutMessage(this);
                 break;
@@ -124,6 +127,12 @@ public class MainActivity extends BaseActivity {
 
     public void toggleShareOption(boolean flag) {
         ctaShare.setEnabled(flag);
+        if (flag) {
+            ctaShare.setImageResource(R.mipmap.ic_share);
+        } else {
+            ctaShare.setImageResource(R.mipmap.ic_share_disabled);
+        }
+
     }
 
     public void showCTAMainLayout(boolean flag) {
@@ -142,9 +151,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.cta_edit)
-    public void editProfile(View view) {
+    private void editMyProfile() {
         startFragment(EditProfileFragment.newInstance(this, myProfileData), false);
         showCTAMainLayout(false);
         showCTAUserLayout(true);
