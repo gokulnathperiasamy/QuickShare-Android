@@ -32,6 +32,7 @@ import net.glxn.qrgen.android.QRCode;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -63,8 +64,9 @@ public class MainActivity extends BaseActivity {
 
     private void loadCardData() {
         hideSoftKeyboard();
-        List<ProfileData> listProfileData = DataSupport.findAll(ProfileData.class);
+        List<ProfileData> listProfileData = DataSupport.order("id").find(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
+            Collections.reverse(listProfileData);
             loadCards(listProfileData);
         } else {
             startFragment(HomeFragment.newInstance(this), false);
