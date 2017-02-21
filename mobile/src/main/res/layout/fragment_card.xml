@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteVeryLight"
-    android:padding="8dp"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".fragment.HomeFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <com.quickshare.custom.AnimatedRecyclerView
         android:id="@+id/card_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

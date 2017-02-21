@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:stateListAnimator="@anim/card_view_click_effect"
         app:cardCornerRadius="@dimen/cardview_default_elevation"
         app:cardMaxElevation="@dimen/cardview_default_elevation"
         app:cardPreventCornerOverlap="false"

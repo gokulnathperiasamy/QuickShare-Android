@@ -9,6 +9,7 @@ import android.view.View;
 import com.quickshare.R;
 import com.quickshare.activity.MainActivity;
 import com.quickshare.adapter.CardListAdapter;
+import com.quickshare.custom.AnimatedRecyclerView;
 import com.quickshare.entity.ProfileData;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import butterknife.Bind;
 public class CardFragment extends BaseFragment {
 
     @Bind(R.id.card_list)
-    RecyclerView cardList;
+    AnimatedRecyclerView cardList;
 
     private static MainActivity mainActivity;
     private static List<ProfileData> listProfileData;
