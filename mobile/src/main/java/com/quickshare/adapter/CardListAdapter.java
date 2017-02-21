@@ -18,13 +18,15 @@ public class CardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<ProfileData> list;
     CardFragment cardFragment;
     MainActivity mainActivity;
+    boolean isNewlyAdded;
 
     Context context;
 
-    public CardListAdapter(List<ProfileData> listProfileData, CardFragment cardFragment, MainActivity mainActivity) {
+    public CardListAdapter(List<ProfileData> listProfileData, CardFragment cardFragment, MainActivity mainActivity, boolean isNewlyAdded) {
         this.list = listProfileData;
         this.cardFragment = cardFragment;
         this.mainActivity = mainActivity;
+        this.isNewlyAdded = isNewlyAdded;
         QuickShareApplication.inject(this);
     }
 
@@ -38,7 +40,7 @@ public class CardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ProfileData profileData = list.get(position);
         CardListItemViewHolder cardListItemViewHolder = (CardListItemViewHolder) holder;
-        cardListItemViewHolder.bindView(profileData, context, cardFragment, mainActivity);
+        cardListItemViewHolder.bindView(profileData, context, cardFragment, mainActivity, isNewlyAdded, position);
     }
 
     @Override

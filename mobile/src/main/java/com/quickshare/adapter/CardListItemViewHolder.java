@@ -43,17 +43,21 @@ public class CardListItemViewHolder extends RecyclerView.ViewHolder {
     private Context context;
     private ProfileData profileData;
     private MainActivity mainActivity;
+    private boolean isNewlyAdded;
+    private int position;
 
     public CardListItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(final ProfileData profileData, final Context context, final CardFragment cardFragment, final MainActivity mainActivity) {
+    public void bindView(final ProfileData profileData, final Context context, final CardFragment cardFragment, final MainActivity mainActivity, final boolean isNewlyAdded, final int position) {
         this.context = context;
         this.cardFragment = cardFragment;
         this.profileData = profileData;
         this.mainActivity = mainActivity;
+        this.isNewlyAdded = isNewlyAdded;
+        this.position = position;
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         itemView.setLayoutParams(layoutParams);
@@ -69,6 +73,9 @@ public class CardListItemViewHolder extends RecyclerView.ViewHolder {
 
     private void setData(ProfileData profileData) {
         name.setText(ProfileDataHelper.getFullName(profileData.firstName, profileData.lastName));
+        if (isNewlyAdded && position == 0) {
+            name.setTextColor(context.getResources().getColor(R.color.primaryColorDark));
+        }
 
         if (profileData.companyName.length() > 0) {
             companyName.setText(profileData.companyName);

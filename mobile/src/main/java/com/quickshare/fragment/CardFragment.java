@@ -23,13 +23,15 @@ public class CardFragment extends BaseFragment {
 
     private static MainActivity mainActivity;
     private static List<ProfileData> listProfileData;
+    private static boolean isNewlyAdded;
 
     public CardFragment() {
     }
 
-    public static CardFragment newInstance(MainActivity mainActivity, List<ProfileData> listProfileData) {
+    public static CardFragment newInstance(MainActivity mainActivity, List<ProfileData> listProfileData, boolean isNewlyAdded) {
         CardFragment.mainActivity = mainActivity;
         CardFragment.listProfileData = listProfileData;
+        CardFragment.isNewlyAdded = isNewlyAdded;
         return new CardFragment();
     }
 
@@ -52,6 +54,6 @@ public class CardFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         cardList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        cardList.setAdapter(new CardListAdapter(listProfileData, this, mainActivity));
+        cardList.setAdapter(new CardListAdapter(listProfileData, this, mainActivity, isNewlyAdded));
     }
 }

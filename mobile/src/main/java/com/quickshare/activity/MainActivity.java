@@ -63,17 +63,21 @@ public class MainActivity extends BaseActivity {
     }
 
     public void loadCardData() {
+        loadCardData(false);
+    }
+
+    public void loadCardData(boolean isNewlyAdded) {
         hideSoftKeyboard();
         List<ProfileData> listProfileData = DataSupport.order("id").find(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
             Collections.reverse(listProfileData);
-            loadCards(listProfileData);
+            loadCards(listProfileData, isNewlyAdded);
         } else {
             startFragment(HomeFragment.newInstance(this), false);
         }
     }
 
-    private void loadCards(List<ProfileData> listProfileData) {
+    private void loadCards(List<ProfileData> listProfileData, boolean isNewlyAdded) {
         for (ProfileData profileData : listProfileData) {
             if (profileData.isMyProfile.equalsIgnoreCase(ProfileDataType.MY_PROFILE.getValue())) {
                 myProfileData = profileData;
@@ -85,7 +89,7 @@ public class MainActivity extends BaseActivity {
         }
         // Remove personal card. And populate other cards.
         if (listProfileData.size() > 0) {
-            startFragment(CardFragment.newInstance(this, listProfileData), false);
+            startFragment(CardFragment.newInstance(this, listProfileData, isNewlyAdded), false);
         } else {
             startFragment(HomeFragment.newInstance(this), false);
         }
@@ -259,7 +263,7 @@ public class MainActivity extends BaseActivity {
         ProfileData profileData = ProfileDataHelper.getProfileDataFromQRCode(input);
         if (profileData != null) {
             profileData.save();
-            loadCardData();
+            loadCardData(true);
         } else {
             Toast.makeText(this, getString(R.string.new_card_unable_to_save_message), Toast.LENGTH_LONG).show();
         }
