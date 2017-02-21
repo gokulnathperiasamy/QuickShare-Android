@@ -6,7 +6,7 @@ import com.quickshare.entity.ProfileDataType;
 public class ProfileDataHelper {
 
     public static String getProfileID() {
-        return "_ID" + "|" + generateRandomNumber(10, 99) + "|" + System.nanoTime();
+        return "_ID" + "|-|" + generateRandomNumber(10, 99) + "|-|" + System.nanoTime();
     }
 
     public static boolean isDataValid(ProfileData profileData) {
@@ -50,25 +50,25 @@ public class ProfileDataHelper {
 
     public static String getQRCodeFromProfileData(ProfileData profileData) {
         if (profileData != null) {
-            return profileData.firstName + "|" + profileData.lastName + "|" + profileData.companyName + "|" + profileData.companyAddress + "|" + profileData.email + "|" + profileData.mobileNumber + "|" + profileData.officeNumber + "|" + profileData.fax + "|";
+            return profileData.profileID + "||" + profileData.firstName + "||" + profileData.lastName + "||" + profileData.companyName + "||" + profileData.companyAddress + "||" + profileData.email + "||" + profileData.mobileNumber + "||" + profileData.officeNumber + "||" + profileData.fax + "||";
         }
         return null;
     }
 
     public static ProfileData getProfileDataFromQRCode(final String QR_PROFILE_DATA) {
         if (TextHelper.isValidText(QR_PROFILE_DATA)) {
-            String[] data = QR_PROFILE_DATA.split("\\|", -1);
-            if (data.length > 0 && TextHelper.isValidText(data[0])) {
+            String[] data = QR_PROFILE_DATA.split("\\|\\|", -1);
+            if (data.length > 0 && TextHelper.isValidText(data[0]) && data.length == 10) {
                 ProfileData profileData = new ProfileData();
-                profileData.profileID = ProfileDataHelper.getProfileID();
-                profileData.firstName = TextHelper.isValidText(data[0]) ? data[0] : "";
-                profileData.lastName = TextHelper.isValidText(data[1]) ? data[1] : "";
-                profileData.companyName = TextHelper.isValidText(data[2]) ? data[2] : "";
-                profileData.companyAddress = TextHelper.isValidText(data[3]) ? data[3] : "";
-                profileData.email = TextHelper.isValidText(data[4]) ? data[4] : "";
-                profileData.mobileNumber = TextHelper.isValidText(data[5]) ? data[5] : "";
-                profileData.officeNumber = TextHelper.isValidText(data[6]) ? data[6] : "";
-                profileData.fax = TextHelper.isValidText(data[7]) ? data[7] : "";
+                profileData.profileID = TextHelper.isValidText(data[0]) ? data[0] : ProfileDataHelper.getProfileID();
+                profileData.firstName = TextHelper.isValidText(data[1]) ? data[1] : "";
+                profileData.lastName = TextHelper.isValidText(data[2]) ? data[2] : "";
+                profileData.companyName = TextHelper.isValidText(data[3]) ? data[3] : "";
+                profileData.companyAddress = TextHelper.isValidText(data[4]) ? data[4] : "";
+                profileData.email = TextHelper.isValidText(data[5]) ? data[5] : "";
+                profileData.mobileNumber = TextHelper.isValidText(data[6]) ? data[6] : "";
+                profileData.officeNumber = TextHelper.isValidText(data[7]) ? data[8] : "";
+                profileData.fax = TextHelper.isValidText(data[8]) ? data[8] : "";
                 profileData.isMyProfile = ProfileDataType.OTHERS.getValue();
                 return profileData;
             }

@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
 
     private static boolean isSaveCalled = false;
     private static ProfileData myProfileData = null;
+    private static List<ProfileData> listProfileData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MainActivity extends BaseActivity {
 
     public void loadCardData(boolean isNewlyAdded) {
         hideSoftKeyboard();
-        List<ProfileData> listProfileData = DataSupport.order("id").find(ProfileData.class);
+        listProfileData = DataSupport.order("id").find(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
             Collections.reverse(listProfileData);
             loadCards(listProfileData, isNewlyAdded);
@@ -260,10 +261,22 @@ public class MainActivity extends BaseActivity {
     }
 
     private void saveData(String input) {
+        boolean isDataAlreadyAvailable = false;
+        boolean isDataSaved = false;
         ProfileData profileData = ProfileDataHelper.getProfileDataFromQRCode(input);
         if (profileData != null) {
-            profileData.save();
-            loadCardData(true);
+            for (ProfileData data : listProfileData) {
+                if (data.profileID.equalsIgnoreCase(profileData.profileID)) {
+                    Toast.makeText(this, getString(R.string.card_already_available), Toast.LENGTH_LONG).show();
+                    isDataAlreadyAvailable = true;
+                    break;
+                }
+            }
+            if (!isDataAlreadyAvailable) {
+                profileData.save();
+                isDataSaved = true;
+            }
+            loadCardData(isDataSaved);
         } else {
             Toast.makeText(this, getString(R.string.new_card_unable_to_save_message), Toast.LENGTH_LONG).show();
         }
