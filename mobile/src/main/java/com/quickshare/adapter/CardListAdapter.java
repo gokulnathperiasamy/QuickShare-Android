@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.quickshare.R;
+import com.quickshare.activity.MainActivity;
 import com.quickshare.application.QuickShareApplication;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.fragment.CardFragment;
@@ -16,12 +17,14 @@ public class CardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     List<ProfileData> list;
     CardFragment cardFragment;
+    MainActivity mainActivity;
 
     Context context;
 
-    public CardListAdapter(List<ProfileData> listProfileData, CardFragment cardFragment) {
+    public CardListAdapter(List<ProfileData> listProfileData, CardFragment cardFragment, MainActivity mainActivity) {
         this.list = listProfileData;
         this.cardFragment = cardFragment;
+        this.mainActivity = mainActivity;
         QuickShareApplication.inject(this);
     }
 
@@ -35,7 +38,7 @@ public class CardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ProfileData profileData = list.get(position);
         CardListItemViewHolder cardListItemViewHolder = (CardListItemViewHolder) holder;
-        cardListItemViewHolder.bindView(profileData, context, cardFragment);
+        cardListItemViewHolder.bindView(profileData, context, cardFragment, mainActivity);
     }
 
     @Override

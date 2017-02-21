@@ -52,6 +52,6 @@ public class CardFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         cardList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        cardList.setAdapter(new CardListAdapter(listProfileData, this));
+        cardList.setAdapter(new CardListAdapter(listProfileData, this, mainActivity));
     }
 }

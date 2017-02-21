@@ -9,6 +9,7 @@
     <string name="btn_add">Add New</string>
     <string name="btn_save">Save</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="btn_delete">Delete</string>
 
     <string name="set_profile_message">Please click on \"Menu -> My Profile\" to set your profile.</string>
     <string name="data_not_available_message">No Cards.\nPlease add cards using \"Add New\" button.</string>
@@ -18,6 +19,7 @@
     <string name="add_new_card_title">Add New Card</string>
     <string name="new_card_unable_to_read_message">Unable To Read Card. Try Again.</string>
     <string name="new_card_unable_to_save_message">Unable To Save Card. Try Again.</string>
+    <string name="profile_delete_message">Card Deleted!</string>
 
     <string name="my_profile_title">My Profile</string>
     <string name="first_name">First Name</string>

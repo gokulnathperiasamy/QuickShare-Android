@@ -4,14 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quickshare.R;
+import com.quickshare.activity.MainActivity;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.fragment.CardFragment;
 import com.quickshare.utility.ProfileDataHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CardListItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,15 +39,21 @@ public class CardListItemViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.fax)
     TextView fax;
 
-    Context context;
+    private CardFragment cardFragment;
+    private Context context;
+    private ProfileData profileData;
+    private MainActivity mainActivity;
 
     public CardListItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bindView(final ProfileData profileData, final Context context, final CardFragment cardFragment) {
+    public void bindView(final ProfileData profileData, final Context context, final CardFragment cardFragment, final MainActivity mainActivity) {
         this.context = context;
+        this.cardFragment = cardFragment;
+        this.profileData = profileData;
+        this.mainActivity = mainActivity;
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         itemView.setLayoutParams(layoutParams);
@@ -98,4 +107,11 @@ public class CardListItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    @SuppressWarnings("unused")
+    @OnClick(R.id.action_delete)
+    public void onDeleteAction(View view) {
+        profileData.delete();
+        Toast.makeText(cardFragment.getActivity(), context.getString(R.string.profile_delete_message), Toast.LENGTH_SHORT).show();
+        mainActivity.loadCardData();
+    }
 }

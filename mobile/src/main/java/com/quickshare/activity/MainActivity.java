@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
         loadCardData();
     }
 
-    private void loadCardData() {
+    public void loadCardData() {
         hideSoftKeyboard();
         List<ProfileData> listProfileData = DataSupport.order("id").find(ProfileData.class);
         if (listProfileData != null && listProfileData.size() > 0) {
