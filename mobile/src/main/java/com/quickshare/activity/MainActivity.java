@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.quickshare.R;
 import com.quickshare.dialog.ShareMyProfileDialog;
 import com.quickshare.entity.ProfileData;
@@ -175,7 +176,7 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.cta_share)
     public void shareMyCard(View view) {
         if (myProfileData != null) {
-            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).withSize(400, 400).bitmap();
+            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).bitmap();
             if (myBitmap != null) {
                 ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap, myProfileData);
                 dialog.show();
