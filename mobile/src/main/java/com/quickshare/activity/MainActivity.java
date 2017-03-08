@@ -175,9 +175,9 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.cta_share)
     public void shareMyCard(View view) {
         if (myProfileData != null) {
-            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).bitmap();
+            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).withSize(400, 400).bitmap();
             if (myBitmap != null) {
-                ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap);
+                ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap, myProfileData);
                 dialog.show();
             }
         }
