@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+def appVersionName() {
+    return "1.0"
+}
+
+def appVersionCode() {
+    return 4
+}
 
 android {
     compileSdkVersion 25
@@ -9,8 +16,9 @@ android {
         applicationId "com.kpgn.quickshare"
         minSdkVersion 20
         targetSdkVersion 20
-        versionCode 2
-        versionName "1.0"
+        versionCode appVersionCode()
+        versionName appVersionName()
+        multiDexEnabled true
     }
     buildTypes {
         release {
