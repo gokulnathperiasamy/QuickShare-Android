@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.kpgn.quickshare"
-        minSdkVersion 19
-        targetSdkVersion 19
+        minSdkVersion 20
+        targetSdkVersion 20
         versionCode 2
         versionName "1.0"
     }
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.google.android.gms:play-services:+'
 }

@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId "com.kpgn.quickshare"
         minSdkVersion 20
-        targetSdkVersion 25
+        targetSdkVersion 20
         versionCode 2
         versionName "1.0"
     }
@@ -23,5 +23,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.support:wearable:1.4.0'
-    compile 'com.google.android.gms:play-services-wearable:10.0.1'
+    compile 'com.android.support:support-v13:+'
+    compile 'com.google.android.gms:play-services-wearable:+'
 }

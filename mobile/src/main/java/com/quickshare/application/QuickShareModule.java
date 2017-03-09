@@ -2,6 +2,8 @@ package com.quickshare.application;
 
 import android.content.Context;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.Wearable;
 import com.quickshare.activity.BaseActivity;
 import com.quickshare.activity.MainActivity;
 import com.quickshare.activity.ReadQRCodeActivity;
@@ -50,6 +52,14 @@ public class QuickShareModule {
     @Singleton
     public Context providesContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    GoogleApiClient providesGoogleApiClient(Context context) {
+        return new GoogleApiClient.Builder(context)
+                .addApi(Wearable.API)
+                .build();
     }
 
 }

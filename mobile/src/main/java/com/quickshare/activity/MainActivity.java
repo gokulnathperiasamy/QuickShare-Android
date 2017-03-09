@@ -15,10 +15,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.Asset;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.Wearable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.quickshare.R;
+import com.quickshare.application.Constant;
 import com.quickshare.dialog.ShareMyProfileDialog;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
@@ -33,8 +39,11 @@ import net.glxn.qrgen.android.QRCode;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -52,7 +61,11 @@ public class MainActivity extends BaseActivity {
 
     private static boolean isSaveCalled = false;
     private static ProfileData myProfileData = null;
+    private static Bitmap myBitmap = null;
     private static List<ProfileData> listProfileData = null;
+
+    @Inject
+    GoogleApiClient apiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +96,12 @@ public class MainActivity extends BaseActivity {
         for (ProfileData profileData : listProfileData) {
             if (profileData.isMyProfile.equalsIgnoreCase(ProfileDataType.MY_PROFILE.getValue())) {
                 myProfileData = profileData;
+                myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).bitmap();
                 PreferenceHelper.setIsProfileSet(true);
                 toggleShareOption(true);
+                if (myBitmap != null) {
+                    sendToWear(myBitmap);
+                }
                 listProfileData.remove(profileData);
                 break;
             }
@@ -95,6 +112,52 @@ public class MainActivity extends BaseActivity {
         } else {
             startFragment(HomeFragment.newInstance(this), false);
         }
+    }
+
+    private void sendToWear(final Bitmap myBitmap) {
+        apiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(Bundle connectionHint) {
+                        sendImageToWear(myBitmap);
+                    }
+                    @Override
+                    public void onConnectionSuspended(int cause) {
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(ConnectionResult result) {
+                    }
+                })
+                .addApi(Wearable.API)
+                .build();
+        apiClient.connect();
+    }
+
+    private void sendImageToWear(final Bitmap myBitmap) {
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    PutDataMapRequest request = PutDataMapRequest.create("/image");
+                    DataMap map = request.getDataMap();
+                    Asset asset = createAssetFromBitmap(myBitmap);
+                    map.putLong(Constant.WEAR_SYSTEM_TIME, System.nanoTime());
+                    map.putAsset(Constant.WEAR_CARD_IMAGE, asset);
+                    Wearable.DataApi.putDataItem(apiClient, request.asPutDataRequest());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private static Asset createAssetFromBitmap(Bitmap bitmap) {
+        final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+        return Asset.createFromBytes(byteStream.toByteArray());
     }
 
     @Override
@@ -175,12 +238,8 @@ public class MainActivity extends BaseActivity {
     @SuppressWarnings("unused")
     @OnClick(R.id.cta_share)
     public void shareMyCard(View view) {
-        if (myProfileData != null) {
-            Bitmap myBitmap = QRCode.from(ProfileDataHelper.getQRCodeFromProfileData(myProfileData)).bitmap();
-            if (myBitmap != null) {
-                ShareMyProfileDialog dialog = new ShareMyProfileDialog(this, myBitmap, myProfileData);
-                dialog.show();
-            }
+        if (myProfileData != null && myBitmap != null) {
+            new ShareMyProfileDialog(this, myBitmap, myProfileData).show();
         }
     }
 

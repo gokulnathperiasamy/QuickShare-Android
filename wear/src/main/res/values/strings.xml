@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">QuickShare</string>
-    <string name="hello_round">Hello Round World!</string>
-    <string name="hello_square">Hello Square World!</string>
+    <string name="app_name">Quick Share</string>
+    <string name="share_message">Share Your Card</string>
+    <string name="update_card_message">Please open app on mobile to update card</string>
+    <string name="card_updated_message">Card Updated</string>
 </resources>
