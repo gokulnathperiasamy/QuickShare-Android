@@ -20,6 +20,9 @@ android {
         versionName appVersionName()
         multiDexEnabled true
     }
+    dexOptions {
+        javaMaxHeapSize "2048M"
+    }
     buildTypes {
         release {
             minifyEnabled false
