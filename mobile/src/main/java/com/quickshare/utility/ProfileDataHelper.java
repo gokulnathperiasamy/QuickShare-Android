@@ -1,5 +1,6 @@
 package com.quickshare.utility;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.quickshare.entity.ProfileData;
 import com.quickshare.entity.ProfileDataType;
 
@@ -72,6 +73,7 @@ public class ProfileDataHelper {
                 profileData.isMyProfile = ProfileDataType.OTHERS.getValue();
                 return profileData;
             }
+            FirebaseCrash.log(ProfileDataHelper.class.getCanonicalName() + "Unable to parse profile data");
         }
         return null;
     }

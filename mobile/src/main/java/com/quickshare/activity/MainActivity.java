@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.quickshare.R;
@@ -75,6 +77,11 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toggleShareOption(false);
         loadCardData();
+        logAnalytics();
+    }
+
+    private void logAnalytics() {
+        FirebaseCrash.log(MainActivity.class.getCanonicalName() + "Activity Created");
     }
 
     public void loadCardData() {
@@ -146,8 +153,10 @@ public class MainActivity extends BaseActivity {
                     map.putLong(Constant.WEAR_SYSTEM_TIME, System.nanoTime());
                     map.putAsset(Constant.WEAR_CARD_IMAGE, asset);
                     Wearable.DataApi.putDataItem(apiClient, request.asPutDataRequest());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    FirebaseCrash.logcat(Log.ERROR, MainActivity.class.getCanonicalName(), "Unable to send to Wear");
+                    FirebaseCrash.report(ex);
                 }
             }
         });
