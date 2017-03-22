@@ -20,7 +20,6 @@
             android:imeOptions="actionNext"
             android:inputType="textPersonName|textNoSuggestions|textCapWords"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -39,7 +38,6 @@
             android:imeOptions="actionNext"
             android:inputType="textPersonName|textNoSuggestions|textCapWords"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -58,7 +56,6 @@
             android:imeOptions="actionNext"
             android:inputType="text|textCapWords"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -77,7 +74,6 @@
             android:imeOptions="actionNext"
             android:inputType="text|textCapWords"
             android:maxLines="2"
-            android:singleLine="false"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -96,7 +92,6 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -115,7 +110,6 @@
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -134,7 +128,6 @@
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
@@ -153,7 +146,6 @@
             android:imeOptions="actionNext"
             android:inputType="phone"
             android:maxLines="1"
-            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/medium_grey"
             android:textSize="14sp" />
