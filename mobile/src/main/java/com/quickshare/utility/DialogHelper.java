@@ -3,6 +3,8 @@ package com.quickshare.utility;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 
 import com.quickshare.R;
 
@@ -21,7 +23,13 @@ public class DialogHelper {
         alertDialog.show();
     }
 
-    public static void launchPlayStore() {
-
+    public static void launchPlayStore(Context context) {
+        Uri uri = Uri.parse("market://details?id=" + "com.kpgn.quickshare");
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            context.startActivity(goToMarket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

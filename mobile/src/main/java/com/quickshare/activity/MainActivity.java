@@ -185,7 +185,7 @@ public class MainActivity extends BaseActivity {
                 DialogHelper.showAboutMessage(this);
                 break;
             case R.id.action_rate:
-                DialogHelper.launchPlayStore();
+                DialogHelper.launchPlayStore(this);
                 break;
         }
         return super.onOptionsItemSelected(item);
